@@ -29,11 +29,15 @@ class TransactionsRepository {
     const incomeTransactions = this.transactions.filter(
       transaction => transaction.type === 'income',
     );
-    incomeTransactions.forEach(transaction => (income += transaction.value));
+    incomeTransactions.forEach(transaction => {
+      income += transaction.value;
+    });
     const outcomeTransactions = this.transactions.filter(
       trasanction => trasanction.type === 'outcome',
     );
-    outcomeTransactions.forEach(transaction => (outcome += transaction.value));
+    outcomeTransactions.forEach(transaction => {
+      outcome += transaction.value;
+    });
     const total = income - outcome;
     const balance = {
       income,
