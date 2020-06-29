@@ -17,16 +17,16 @@ class CreateTransactionService {
   }
 
   public execute({ title, value, type }: RequestDTO): Transaction {
+    const balance = this.transactionsRepository.getBalance();
+    if (type === 'outcome' && value > balance.total) {
+      throw Error('Invalid transaction!');
+    }
     const transaction = this.transactionsRepository.create({
       title,
       value,
       type,
     });
 
-    const balance = this.transactionsRepository.getBalance();
-    if (transaction.type === 'outcome' && transaction.value > balance.total) {
-      throw Error('Invalid transaction!');
-    }
     return transaction;
   }
 }
